@@ -1,15 +1,21 @@
 server:
   port: 8761
+#  spring:
+#    profiles:
+#      active: peer1
 
 eureka:
   instance:
     hostname: localhost
+    #prefer-ip-address: true # 设置为true, 可以通过ip地址直接实例化,eureka.instance.name不需要写别名
+
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    registerWithEureka: false #表示是否注册Eureka服务器,因为自身作为服务注册中心，所以为false
+    fetchRegistry: false #是否从eureka上获取注册信息,表明自己是一个server
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
               #${eureka.instance.hostname} 设备的主机名
+     # defaultZone: http://peer1:8761/eureka/,http://peer2:8772/eureka/,http://peer3:8773/eureka/
 spring:
   application:
     name: eureka-server
